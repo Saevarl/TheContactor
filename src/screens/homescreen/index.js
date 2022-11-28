@@ -2,6 +2,7 @@ import { View, Text, SafeAreaView } from 'react-native'
 import React, { useLayoutEffect }from 'react'
 import { useNavigation } from '@react-navigation/native'; 
 import Toolbar from '../../components/toolbar';
+import ContactsList from '../../components/contactsList';
 
 const HomeScreen = () => {
     const navigation = useNavigation(); 
@@ -18,8 +19,8 @@ const HomeScreen = () => {
   return (
     <SafeAreaView>
     <View>
-      <Text className="text-red-500">HomeScreen</Text>
-      <Toolbar className="h-10 bg-blue-500"/>
+      <ContactsList />
+      <Toolbar />
     </View>
     </SafeAreaView>
   )
