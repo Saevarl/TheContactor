@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Toolbar from '../../components/toolbar';
 import ContactsList from '../../components/contactsList';
 
-const HomeScreen = () => {
+const HomeScreen = ({"navigation": { navigate }}) => {
     const navigation = useNavigation(); 
     
   
@@ -22,7 +22,10 @@ const HomeScreen = () => {
     
       <ScrollView>
         <View className="flex-1">
-          <ContactsList />
+          <ContactsList 
+                    navigate={(screen) => navigate(screen)}
+                    
+          />
         </View>
       
       </ScrollView>

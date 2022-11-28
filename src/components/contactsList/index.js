@@ -2,7 +2,7 @@ import { View, Text, FlatList } from 'react-native'
 import React from 'react'
 import ContactListToolbar from '../contactListToolbar'
 
-const ContactsList = () => {
+const ContactsList = ({navigate}) => {
   // dummy contacts with name and phone number as key
   const contacts = [
     {name: 'John Doe', phone: '234567890'},
@@ -14,7 +14,9 @@ const ContactsList = () => {
   ]
   return (
     <View className="bg-gray-200"> 
-        <ContactListToolbar />
+        <ContactListToolbar 
+                        navigate={navigate}
+        />
         <FlatList
           data={contacts}
           renderItem={({item}) => <Text className="bg-white p-2 m-2">{item.name}</Text>}

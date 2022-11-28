@@ -3,12 +3,13 @@ import React from 'react'
 import { PlusIcon } from "react-native-heroicons/solid";
 import { MagnifyingGlassIcon, EllipsisVerticalIcon } from "react-native-heroicons/outline";
 
-const ContactListToolbar = () => {
+const ContactListToolbar = ({navigate}) => {
   return (
     <View className="flex-row h-10 mb-2 bg-gray-200 justify-center">
       <Text className="flex-1 font-bold text-xl m-2 " >Phone</Text>
       <View className="flex-row justify-center mx-4 mt-2 space-x-2">
-        <TouchableOpacity>
+        <TouchableOpacity
+                      onPress={() => navigate("CreateContact")}>
             <PlusIcon color={"black"} className="h-6 w-6 m-2 ml-2" />
         </TouchableOpacity>
         
