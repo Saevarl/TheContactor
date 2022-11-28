@@ -6,6 +6,10 @@ const Toolbar = () => {
     <View className="flex-row h-10 bg-gray-200 items-center justify-center px-4">
         <View className="flex-row space-x-3 "> 
             <TouchableOpacity>
+                <Text className="font-bold text-gray-500 p-2">Keypad</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity>
                 <Text className="font-bold text-gray-500 p-2">Recents</Text>
             </TouchableOpacity>
 

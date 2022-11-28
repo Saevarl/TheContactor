@@ -12,12 +12,9 @@ const HomeScreen = () => {
             headerShown: false
         })
     }, [])
-
-    
-
-
+  
   return (
-    <SafeAreaView>
+    <SafeAreaView className="bg-gray-200">
     <View>
       <ContactsList />
       <Toolbar />

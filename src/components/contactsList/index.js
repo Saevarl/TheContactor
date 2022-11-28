@@ -4,7 +4,7 @@ import ContactListToolbar from '../contactListToolbar'
 
 const ContactsList = () => {
   return (
-    <View className="bg-white"> 
+    <View className="bg-gray-200"> 
         <ContactListToolbar />
     </View>
   )
