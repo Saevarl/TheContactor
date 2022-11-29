@@ -1,11 +1,14 @@
-import { View, Text, SafeAreaView } from 'react-native'
-import React, { useLayoutEffect }from 'react'
+import { View, Text, SafeAreaView, Image, FlatList } from 'react-native'
+import React, { useLayoutEffect, useState }from 'react'
 import { useNavigation } from '@react-navigation/native'; 
 import Toolbar from '../../components/toolbar';
 import ContactsList from '../../components/contactsList';
+import ContactDetails from '../../components/contactDetails';
+import * as data from "../../../data.json";
 
 const HomeScreen = () => {
     const navigation = useNavigation(); 
+    const [contacts, setContacts] = useState(data.contacts)
     
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -18,8 +21,17 @@ const HomeScreen = () => {
     <View>
       <ContactsList />
       <Toolbar />
+      <FlatList 
+        data = {contacts}
+        renderItem={({item})=>(
+          <ContactDetails
+          contacts={item}
+          />)}
+        keyExtractor={(item) => item?.id}
+      />
     </View>
     </SafeAreaView>
+    
   )
 }
 

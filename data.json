@@ -1,0 +1,18 @@
+{
+    "contacts": [
+        {
+            "id": 1,
+            "name": "Magnus Carlsen",
+            "image": "https://yt3.ggpht.com/oHmF1pFUKwRFGsUbzNYKkbhIJoaW4b-L_IZ0HZnmerBL_MdLwiVSaCg2YgNzj8LI8HXF59SYk8U=s900-c-k-c0x00ffffff-no-rj",
+            "phoneNumber": "5812345"
+        },
+        {
+            "id": 2,
+            "name": "Griggory Rasputin",
+            "image": "https://cdn.britannica.com/99/38699-050-5BC18587/Grigory-Yefimovich-Rasputin.jpg",
+            "phoneNumber": "6666666"
+        }
+
+    ]
+    
+}
