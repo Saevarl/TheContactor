@@ -1,5 +1,3 @@
-import { View, Text, SafeAreaView, Image, FlatList } from 'react-native'
-import React, { useLayoutEffect, useState }from 'react'
 import { View, Text, SafeAreaView, ScrollView, FlatList } from 'react-native'
 import React, { useLayoutEffect, useState }from 'react'
 import { useNavigation } from '@react-navigation/native'; 
