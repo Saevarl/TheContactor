@@ -17,21 +17,23 @@ const HomeScreen = () => {
     }, [])
   
   return (
-    <SafeAreaView className="bg-gray-200">
     <View>
-      <ContactsList />
-      <Toolbar />
+      <SafeAreaView className="bg-gray-200">
+      <View>
+        <ContactsList />
+        <Toolbar />
+        
+      </View>
+      </SafeAreaView>
       <FlatList 
-        data = {contacts}
-        renderItem={({item})=>(
-          <ContactDetails
-          contacts={item}
-          />)}
-        keyExtractor={(item) => item?.id}
-      />
+          data = {contacts}
+          renderItem={({item})=>(
+            <ContactDetails
+            contacts={item}
+            />)}
+          keyExtractor={(item) => item?.id}
+        />
     </View>
-    </SafeAreaView>
-    
   )
 }
 
