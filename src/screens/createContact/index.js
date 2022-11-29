@@ -20,9 +20,9 @@ const CreateContact = ({"navigation": { navigate }}) => {
     
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 bg-gray-200">
         <ScrollView>
-        <View className="bg-gray-200 h-screen py-4 flex-1">
+        <View className=" h-screen py-4 flex-1">
       <View className="h-30 flex flex-col ">
         <View className="h-20 items-center justify-center">
             <CameraIcon className="h-40 w-40" color={"orange"}/>
