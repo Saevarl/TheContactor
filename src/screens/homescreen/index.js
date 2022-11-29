@@ -8,14 +8,26 @@ import * as data from "../../../data.json";
 
 const HomeScreen = () => {
     const navigation = useNavigation(); 
-    const [contacts, setContacts] = useState(data.contacts)
+    const [contacts, setContacts] = useState(data.contacts);
     
+    const updateContact = (updatedContact) =>{
+      const newContact = contacts.map((contact)=>{
+          if(contact.id === updatedContact.id){
+              return updatedContact;
+          }
+          else {
+              return contact;
+          }
+      })
+      setContacts(newContact);
+  };
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false
         })
     }, [])
-  
+    
   return (
     <View>
       <SafeAreaView className="bg-gray-200">
@@ -30,6 +42,7 @@ const HomeScreen = () => {
           renderItem={({item})=>(
             <ContactDetails
             contacts={item}
+            updateContact={updateContact}
             />)}
           keyExtractor={(item) => item?.id}
         />
