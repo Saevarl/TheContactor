@@ -4,7 +4,7 @@ import React from 'react'
 const Toolbar = () => {
   return (
     <View className="flex-row h-10 bg-gray-200 items-center justify-center px-4">
-        <View className="flex-row space-x-3 "> 
+        <View className="flex-row space-x-7 "> 
             <TouchableOpacity>
                 <Text className="font-bold text-gray-500 p-2">Keypad</Text>
             </TouchableOpacity>
