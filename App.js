@@ -6,6 +6,7 @@ import HomeScreen from './src/screens/homescreen';
 import CreateContact from './src/screens/createContact';
 import { store } from './src/app/store';
 import { Provider } from 'react-redux';
+import ContactDetails from './src/components/contactDetails';
 
 const Stack = createNativeStackNavigator();
 
@@ -13,7 +14,6 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    
     <NavigationContainer>
     <Provider store={store}>
       <Stack.Navigator>
