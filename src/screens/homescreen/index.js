@@ -3,6 +3,7 @@ import React, { useLayoutEffect }from 'react'
 import { useNavigation } from '@react-navigation/native'; 
 import Toolbar from '../../components/toolbar';
 import ContactsList from '../../components/contactsList';
+import ContactListToolbar from '../../components/contactListToolbar';
 
 const HomeScreen = ({"navigation": { navigate }}) => {
     const navigation = useNavigation(); 
@@ -16,7 +17,7 @@ const HomeScreen = ({"navigation": { navigate }}) => {
   return (
     
       <SafeAreaView className=" bg-gray-100 flex-1">
-
+        <ContactListToolbar />
         <ScrollView nestedScrollEnabled={true}>
           <View className="flex-1">
 

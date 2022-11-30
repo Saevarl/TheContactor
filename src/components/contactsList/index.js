@@ -20,18 +20,37 @@ const ContactsList = () => {
   useEffect(() => {
     dispatch(fetchContacts());
   }, []);
-
-
-
-
-   
   
-
-
+  
+  // *****************************
+  // * ÞETTA ER DEVELOPMENT CODE *
+  // *****************************
   const cleanDirectory = async () => {
     await fileService.cleanDirectory();
   
   }
+
+  
+
+  const renderContact = ({contact}) => {
+    console.log(contact);
+    return(
+      <View>
+        <TouchableOpacity
+          key={contact.id}
+          onPress={() => navigation.navigate('ContactDetail', {contact})}>
+            {/*Hér þarf að rendera SingleContact component í stað þess að rendera bara text*/}
+            <Text 
+            className="p-2 mx-2">
+              {contact.name}
+            </Text>
+          </TouchableOpacity>
+          <View/>
+      </View>
+      )
+  }
+
+    
 
 return (
     <View> 
@@ -41,33 +60,26 @@ return (
       >
         <Text>Purge</Text>
       </TouchableOpacity>
-       <ContactListToolbar addContact={(contact) => addContact(contact)}/>
+      
 
        {
           firstLetterList.sort().map((letter, index) => {
             return(
               <View key={index}
-                    className="m-2">
+                    className="mt-2">
                 
                 <Text className="text-gray-600 text-xs ml-3">{letter}</Text>
-                <View className="bg-white rounded-xl mx-2 mt-1">
+                <View className="bg-white rounded-xl mt-1">
                 {
-                  rContacts.filter((contact) => contact.name[0].toUpperCase() === letter).map((contact) => {
-                    
-                    return(
-                      
-                        <TouchableOpacity
-                          key={contact.id}
-                          onPress={() => navigation.navigate('ContactDetail', {contact: contact})}>
-                          
-                          <Text className="p-2 mx-2">{contact.name}</Text>
-                        </TouchableOpacity>
-                      
-                    )
-                  }
-    
-                  )
-                  
+                  rContacts.filter((contact) => contact.name[0].toUpperCase() === letter).map((contact, index) => {
+                    if (index === 0) {
+                      contact = {...contact, withDivider: false}
+                      return renderContact({contact});
+                    } else {
+                      contact = {...contact, withDivider: true}
+                      return renderContact({contact});
+                    }
+                  })
                 }
                 </View>
 

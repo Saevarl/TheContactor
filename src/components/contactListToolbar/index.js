@@ -1,7 +1,7 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { PlusIcon } from "react-native-heroicons/solid";
-import { MagnifyingGlassIcon, EllipsisVerticalIcon } from "react-native-heroicons/outline";
+import { MagnifyingGlassIcon, TrashIcon } from "react-native-heroicons/outline";
 import { useNavigation } from '@react-navigation/native';
 
 const ContactListToolbar = () => {
@@ -20,7 +20,7 @@ const ContactListToolbar = () => {
         </TouchableOpacity>
 
         <TouchableOpacity>  
-            <EllipsisVerticalIcon color={"black"} className="h-6 w-6 m-2 ml-2" />
+            <TrashIcon color={"black"} className="h-6 w-6 m-2 ml-2" />
         </TouchableOpacity>
       </View>
     </View>
