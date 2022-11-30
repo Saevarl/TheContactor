@@ -16,20 +16,7 @@ const ContactsList = ({navigate}) => {
   const dispatch = useDispatch();
   
   useEffect(() => {
-    (async () => {
-      const contacts = await fileService.getAllContacts();
-      const contactList = contacts.map(c => {
-        const contact = JSON.parse(c.file);
-        return {
-          id: contact.id,
-          name: contact.name,
-          phone: contact.phone,
-          photo: contact.photo
-        }
-      });
-      console.log("CONTACTS", contactList);
-      setContacts(contactList);
-    })();
+    dispatch(fetchContacts());
   }, []);
 
 
@@ -81,9 +68,9 @@ const ContactsList = ({navigate}) => {
                         addContact={(contact) => addContact(contact)}
         />
         <FlatList
-          data={contacts}
+          data={rContacts}
           renderItem={({item}) => <Text className="bg-white p-2 m-2">{item.name}</Text>}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item?.id}
           scrollEnabled={false}
         />
       

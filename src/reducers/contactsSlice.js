@@ -12,7 +12,7 @@ export const contactsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
-        state.contacts = [action.payload];
+        state.contacts = action.payload;
       })
   } 
 })
@@ -21,9 +21,16 @@ export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
   async () => {
     const contacts = await fileService.getAllContacts();
-    console.log("BLALALAL", contacts);
-    const contactList = contacts.map(c => JSON.parse(c));
-    console.log(contactList);
+    const contactList = contacts.map(c => {
+      const contact = JSON.parse(c.file);
+      return {
+        id: contact.id,
+        name: contact.name,
+        phone: contact.phone,
+        photo: contact.photo
+      }
+    });
+    console.log("Contact list: ", contactList);
     return contactList;
   }
   
