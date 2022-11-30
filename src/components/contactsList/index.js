@@ -32,11 +32,10 @@ const ContactsList = () => {
     await fileService.cleanDirectory();
   
   }
-  console.log(firstLetterList)
 
 return (
-    <View className="bg-gray-200"> 
-      
+    <View> 
+    
       <TouchableOpacity
         onPress={() => cleanDirectory()}
       >
@@ -47,21 +46,30 @@ return (
        {
           firstLetterList.sort().map((letter, index) => {
             return(
-              <View key={index}>
-                <Text className="text-gray-600 text-xs ml-2">{letter}</Text>
+              <View key={index}
+                    className="m-2">
+                
+                <Text className="text-gray-600 text-xs ml-3">{letter}</Text>
+                <View className="bg-white rounded-xl mx-2 mt-1">
                 {
                   rContacts.filter((contact) => contact.name[0].toUpperCase() === letter).map((contact) => {
+                    
                     return(
-                      <TouchableOpacity
-                        key={contact.id}
-                        onPress={() => navigation.navigate('Contact', {contact: contact})}
-                      >
-                        <Text className="bg-white p-2 m-2">{contact.name}</Text>
-                      </TouchableOpacity>
+                      
+                        <TouchableOpacity
+                          key={contact.id}
+                          onPress={() => navigation.navigate('ContactDetail', {contact: contact})}>
+                          
+                          <Text className="p-2 mx-2">{contact.name}</Text>
+                        </TouchableOpacity>
+                      
                     )
                   }
+    
                   )
+                  
                 }
+                </View>
 
             </View>
               

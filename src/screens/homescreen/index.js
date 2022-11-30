@@ -15,7 +15,7 @@ const HomeScreen = ({"navigation": { navigate }}) => {
     
   return (
     
-      <SafeAreaView className=" bg-gray-200 flex-1">
+      <SafeAreaView className=" bg-gray-100 flex-1">
 
         <ScrollView nestedScrollEnabled={true}>
           <View className="flex-1">

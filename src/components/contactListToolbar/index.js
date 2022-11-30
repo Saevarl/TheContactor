@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 const ContactListToolbar = () => {
   const navigation = useNavigation();
   return (
-    <View className="flex-row h-10 mb-2 bg-gray-200 justify-center">
+    <View className="flex-row h-10 mb-2 bg-gray-100 justify-center">
       <Text className="flex-1 font-bold text-xl m-2 " >Phone</Text>
       <View className="flex-row justify-center mx-4 mt-2 space-x-2">
         <TouchableOpacity
