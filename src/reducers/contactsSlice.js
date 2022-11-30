@@ -14,6 +14,9 @@ export const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.contacts = action.payload;
       })
+      .addCase(addContact.fulfilled, (state, action) => {
+        state.contacts.push(action.payload);
+      })
   } 
 })
 
@@ -30,16 +33,26 @@ export const fetchContacts = createAsyncThunk(
         photo: contact.photo
       }
     });
-    console.log("Contact list: ", contactList);
+    console.log(contactList);
     return contactList;
   }
-  
 )
+
+export const addContact = createAsyncThunk(
+  'contacts/addContact',
+  async (contact) => {
+    console.log("Adding contact");
+    await fileService.addContact(contact);
+    return contact;
+  }
+)
+
+
+
+
     
 
 
-// Action creators are generated for each case reducer function
-export const { addContact, removeContact } = contactsSlice.actions
 
 export const selectContacts = (state) => state.contacts.contacts
 

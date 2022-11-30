@@ -5,13 +5,11 @@ import * as fileService from '../../services/fileService';
 import uuid from 'react-native-uuid';
 import { selectContacts } from '../../reducers/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from '../../reducers/contactsSlice';
-import { getContactsMatchingString } from 'react-native-contacts';
+import { fetchContacts, addContact } from '../../reducers/contactsSlice';
 
 
 const ContactsList = ({navigate}) => {
   // dummy contacts with name and phone number as key
-  const [contacts, setContacts] = useState([])
   const rContacts = useSelector(selectContacts);
   const dispatch = useDispatch();
   
@@ -22,10 +20,7 @@ const ContactsList = ({navigate}) => {
 
 
 
-    //fileService.cleanDirectory();
-    //console.log('useEffect');
-    //dispatch(fetchContacts());
- 
+   
   
 
 
@@ -34,13 +29,6 @@ const ContactsList = ({navigate}) => {
   
   }
 
-  const addContact = async contact => {
-    id = `${uuid.v4()}`;
-    contact = {...contact, id};
-    await fileService.addContact(contact);
-    setContacts([...contacts, contact]);
-    
-  }
 
   const removeContact = async contact => {
     const fileName = `${contact.name}-${contact.id}.json`;
@@ -53,11 +41,7 @@ const ContactsList = ({navigate}) => {
 
   return (
     <View className="bg-gray-200"> 
-      <TouchableOpacity
-        onPress={() => addContact({name: 'Saevar', phone: '1234567890', photo: 'https://picsum.photos/200'})}
-      >
-        <Text>Add Contact</Text>
-      </TouchableOpacity>
+      
       <TouchableOpacity
         onPress={() => cleanDirectory()}
       >
