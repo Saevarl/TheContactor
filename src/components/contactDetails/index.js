@@ -21,7 +21,24 @@ export const ContactDetails = ({contacts, updateContact})=>{
         setContactNumber("");
         setIsEditingContact(false);
         updateContact(updatedContact);
+        updateJson(contacts.id, updatedContact)
     };
+
+    const updateJson = async(id, updItem)=>{
+        const response = await fetch(`/feedback/${id}`, {
+            methot: 'PUT',
+            header: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(updItem)
+        })
+
+        const data = await response.json()
+
+        setFeedback(
+            feedback.map((item)=>(item.id === id ? { ...item, ...data } : item))
+        )
+    }
     return(
         
         <View style={styles.contactView}>
