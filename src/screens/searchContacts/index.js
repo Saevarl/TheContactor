@@ -1,4 +1,4 @@
-import { View, Text, TextInput, ScrollView } from 'react-native'
+import { View, Text, TextInput, ScrollView, TouchableOpacityBase, TouchableOpacity } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { selectContacts } from '../../features/contactsSlice';
@@ -37,17 +37,23 @@ const SearchContacts = () => {
   return (
     <SafeAreaView className="bg-gray-200">
       <View className="flex-row mx-2 bg-gray-200 items-center"> 
-        <MaterialIcons
-                  name='arrow-back-ios'
-                  size={19}
-                  color={"rgb(51 65 85)"}
-                  className="self-center mx-2"
-                  />
+        <TouchableOpacity 
+                        onPress={() => navigation.goBack()}
+                        className="ml-1">
+          <MaterialIcons
+                    name='arrow-back-ios'
+                    size={19}
+                    color={"rgb(51 65 85)"}
+                    className="self-center mx-2"
+                    />
+        </TouchableOpacity>
+        
         <TextInput 
-                className="self-center text-xl mb-1 "
+                className="self-center text-xl mb-1 ml-1 "
                 placeholder='Search'
                 placeholderTextColor={"rgb(51 65 85)"}
                 onChangeText={text => setSearch(text)}
+                selectionColor={"green"}
                 />
       </View>
       <ScrollView 

@@ -57,7 +57,8 @@ const CreateContact = ({"navigation": { navigate }}) => {
                     placeholder="Name"
                     onFocus={() => setIsEditingName(true)}
                     onBlur={() => setIsEditingName(false)}
-                    onChangeText={text => setName(text)}      
+                    onChangeText={text => setName(text)}
+                    selectionColor={"orange"}      
                     />
         </View>
         <View className="flex-row bg-white items-center rounded-lg mx-3 px-2 mb-3">
@@ -70,6 +71,7 @@ const CreateContact = ({"navigation": { navigate }}) => {
                     onFocus={() => setIsEditingPhone(true)}
                     onBlur={() => setIsEditingPhone(false)}
                     onChangeText={text => setPhone(text)} 
+                    selectionColor={"orange"}
                     />
         </View>
         <View className="flex-row bg-white items-center rounded-lg mx-3 px-2 mb-3">
@@ -82,6 +84,7 @@ const CreateContact = ({"navigation": { navigate }}) => {
                     onFocus={() => setIsEditingPhoto(true)}
                     onBlur={() => setIsEditingPhoto(false)}
                     onChangeText={text => setPhoto(text)} 
+                    selectionColor={"orange"}
                     />
         </View>
         
