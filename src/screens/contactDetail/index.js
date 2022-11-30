@@ -15,7 +15,6 @@ export const ContactDetail = ({ route })=>{
     const [contactPhone, setContactPhone] = useState(contact.phone);
     const [isEditingContact, setIsEditingContact] = useState(false);
 
-    const navigation = useNavigation();
     const dispatch = useDispatch();
     
     
@@ -29,8 +28,6 @@ export const ContactDetail = ({ route })=>{
         }));
         setIsEditingContact(false);
     }
-
-
     
     return(
         <View style={styles.contactView}>
