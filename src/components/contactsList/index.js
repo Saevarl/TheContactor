@@ -2,9 +2,9 @@ import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import ContactListToolbar from '../contactListToolbar'
 import * as fileService from '../../services/fileService';
-import { selectContacts } from '../../reducers/contactsSlice';
+import { selectContacts } from '../../features/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts, addContact } from '../../reducers/contactsSlice';
+import { fetchContacts, addContact } from '../../features/contactsSlice';
 import { useNavigation } from '@react-navigation/native';
 
 
@@ -33,11 +33,11 @@ const ContactsList = () => {
   
 
   const renderContact = ({contact}) => {
-    console.log(contact);
     return(
-      <View>
+      <View
+          key={contact.id}>
         <TouchableOpacity
-          key={contact.id}
+          
           onPress={() => navigation.navigate('ContactDetail', {contact})}>
             {/*Hér þarf að rendera SingleContact component í stað þess að rendera bara text*/}
             <Text 
@@ -72,14 +72,15 @@ return (
                 <View className="bg-white rounded-xl mt-1">
                 {
                   rContacts.filter((contact) => contact.name[0].toUpperCase() === letter).map((contact, index) => {
-                    if (index === 0) {
-                      contact = {...contact, withDivider: false}
-                      return renderContact({contact});
-                    } else {
-                      contact = {...contact, withDivider: true}
-                      return renderContact({contact});
-                    }
-                  })
+                      if (index === 0) {
+                        contact = {...contact, withDivider: false}
+                        return renderContact({contact});
+                      } else {
+                        contact = {...contact, withDivider: true}
+                        return renderContact({contact});
+                      }
+                    })
+                  
                 }
                 </View>
 

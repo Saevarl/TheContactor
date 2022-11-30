@@ -3,8 +3,7 @@ import { View, Text, Image, TouchableOpacity, Button } from "react-native";
 import styles from "./styles";
 import { TextInput } from "@react-native-material/core";
 import { useDispatch } from "react-redux";
-import { addContact, removeContact } from "../../reducers/contactsSlice";
-import { useNavigation } from "@react-navigation/native";
+import { addContact, removeContact } from "../../features/contactsSlice";
 
 
 

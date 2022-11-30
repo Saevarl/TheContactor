@@ -5,7 +5,7 @@ import { UserIcon, PhoneIcon, CameraIcon as Camera } from 'react-native-heroicon
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { useDispatch } from 'react-redux'
-import { addContact } from '../../reducers/contactsSlice'
+import { addContact } from '../../features/contactsSlice'
 import uuid from 'react-native-uuid';
 
 const CreateContact = ({"navigation": { navigate }}) => {
