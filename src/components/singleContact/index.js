@@ -1,10 +1,10 @@
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import React from 'react'
 
 const SingleContact = ({contact}) => {
     
   return (
-    <View className="flex-row h-full space-x-1 ">
+    <TouchableOpacity className="flex-row h-11 space-x-1 ">
         <View className="p-2 items-center justify-center">
             {
                 contact.photo !== "" ?
@@ -14,7 +14,7 @@ const SingleContact = ({contact}) => {
                 />
                 :
                 <Image 
-                    source={{uri: 'https://reactnative.dev/img/tiny_logo.png'}}
+                    source={{uri: 'https://picsum.photos/200/300'}}
                     className="self-center rounded-full w-8 h-8"
                 />
 
@@ -26,7 +26,7 @@ const SingleContact = ({contact}) => {
         </Text>
         
         </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

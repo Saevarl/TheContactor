@@ -36,18 +36,9 @@ const ContactsList = () => {
   const renderContact = ({contact}) => {
     return(
       <View
-        className="h-11"
-          key={contact.id}>
-        <TouchableOpacity
-          
-          onPress={() => navigation.navigate('ContactDetail', {contact})}>
-            {/*Hér þarf að rendera SingleContact component í stað þess að rendera bara text*/}
-            
-            
-              <SingleContact contact={contact}/>
-            
-          </TouchableOpacity>
-          <View/>
+        className="h-auto"
+        key={contact.id}>
+            <SingleContact contact={contact}/>
       </View>
       )
   }
@@ -71,7 +62,7 @@ return (
                     className="mt-2">
                 
                 <Text className="text-gray-600 text-xs ml-2">{letter}</Text>
-                <View className="bg-white rounded-xl mt-1">
+                <View className="bg-gray-100 rounded-xl mt-1">
                 {
                   rContacts.filter((contact) => contact.name[0].toUpperCase() === letter).map((contact, index) => {
                       if (index === 0) {

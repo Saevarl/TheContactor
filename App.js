@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/homescreen';
 import CreateContact from './src/screens/createContact';
 import ContactDetail from './src/screens/contactDetail';
+import SearchContacts from './src/screens/searchContacts';
 import { store } from './store';
 import { Provider } from 'react-redux';
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="CreateContact" component={CreateContact} />
         <Stack.Screen name="ContactDetail" component={ContactDetail} />
+        <Stack.Screen name="SearchContacts" component={SearchContacts} />
       </Stack.Navigator>
     </Provider>
     </NavigationContainer>
