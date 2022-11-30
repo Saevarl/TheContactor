@@ -4,9 +4,13 @@ import { CameraIcon } from 'react-native-heroicons/solid'
 import { UserIcon, PhoneIcon, CameraIcon as Camera } from 'react-native-heroicons/outline'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
+import { useDispatch } from 'react-redux'
+import { addContact } from '../../reducers/contactsSlice'
+import uuid from 'react-native-uuid';
 
 const CreateContact = ({"navigation": { navigate }}) => {
-    const navigation = useNavigation(); 
+    const navigation = useNavigation();
+    const dispatch = useDispatch(); 
     
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -17,7 +21,24 @@ const CreateContact = ({"navigation": { navigate }}) => {
     const [isEditingName, setIsEditingName] = useState(false)
     const [isEditingPhone, setIsEditingPhone] = useState(false)
     const [isEditingPhoto, setIsEditingPhoto] = useState(false)
-    
+    const [name, setName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [photo, setPhoto] = useState('')
+  
+  const CreateContact = () => {
+    const contact = {
+        id: `${uuid.v4()}`,
+        name: name,
+        phone: phone,
+        photo: photo
+    }
+    console.log("MARTEINN", contact);
+    setName('');    
+    setPhone('');
+    setPhoto('');
+    dispatch(addContact( contact ));
+    navigate('Home');
+    }  
 
   return (
     <SafeAreaView className="flex-1 bg-gray-200">
@@ -35,7 +56,8 @@ const CreateContact = ({"navigation": { navigate }}) => {
                     name="name" 
                     placeholder="Name"
                     onFocus={() => setIsEditingName(true)}
-                    onBlur={() => setIsEditingName(false)}      
+                    onBlur={() => setIsEditingName(false)}
+                    onChangeText={text => setName(text)}      
                     />
         </View>
         <View className="flex-row bg-white items-center rounded-lg mx-3 px-2 mb-3">
@@ -47,6 +69,7 @@ const CreateContact = ({"navigation": { navigate }}) => {
                     placeholder="Phone"
                     onFocus={() => setIsEditingPhone(true)}
                     onBlur={() => setIsEditingPhone(false)}
+                    onChangeText={text => setPhone(text)} 
                     />
         </View>
         <View className="flex-row bg-white items-center rounded-lg mx-3 px-2 mb-3">
@@ -58,6 +81,7 @@ const CreateContact = ({"navigation": { navigate }}) => {
                     placeholder="Photo"
                     onFocus={() => setIsEditingPhoto(true)}
                     onBlur={() => setIsEditingPhoto(false)}
+                    onChangeText={text => setPhoto(text)} 
                     />
         </View>
         
@@ -72,7 +96,10 @@ const CreateContact = ({"navigation": { navigate }}) => {
                 <Text className="font-bold text-gray-500 p-2">Cancel</Text>
             </TouchableOpacity>
             
-            <TouchableOpacity className="w-auto">
+            <TouchableOpacity 
+                        className="w-auto"
+                        onPress={() => CreateContact()}>
+                        
                 <Text className="font-bold text-gray-500 p-2">Save</Text>
             </TouchableOpacity>
 

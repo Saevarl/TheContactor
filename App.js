@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from './src/screens/homescreen';
 import CreateContact from './src/screens/createContact';
-import { store } from './src/app/store';
+import { store } from './store';
 import { Provider } from 'react-redux';
 import ContactDetails from './src/components/contactDetails';
 
