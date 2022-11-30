@@ -6,12 +6,14 @@ import uuid from 'react-native-uuid';
 import { selectContacts } from '../../reducers/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts, addContact } from '../../reducers/contactsSlice';
+import { useNavigation } from '@react-navigation/native';
 
 
 const ContactsList = ({navigate}) => {
   // dummy contacts with name and phone number as key
   const rContacts = useSelector(selectContacts);
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   
   useEffect(() => {
     dispatch(fetchContacts());
@@ -53,7 +55,11 @@ const ContactsList = ({navigate}) => {
         />
         <FlatList
           data={rContacts}
-          renderItem={({item}) => <Text className="bg-white p-2 m-2">{item.name}</Text>}
+          renderItem={({item}) => 
+                            <TouchableOpacity
+                              onPress={() => navigation.navigate("ContactDetail", {contact: item})}>
+                              <Text className="bg-white p-2 m-2">{item.name}</Text>
+                            </TouchableOpacity>}
           keyExtractor={item => item?.id}
           scrollEnabled={false}
         />

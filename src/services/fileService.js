@@ -42,8 +42,9 @@ export const addContact = async contact => {
 
 
 
-export const remove = async name => {
-    return await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${name}`, { idempotent: true }));
+export const remove = async contact => {
+    const fileName = `${contact.name}-${contact.id}.json`;
+    return await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${fileName}`, { idempotent: true }));
 }
 
 export const loadContact = async fileName => {
