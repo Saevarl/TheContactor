@@ -56,8 +56,11 @@ const SearchContacts = () => {
                 selectionColor={"green"}
                 />
       </View>
+      <View>
+        
+      </View>
       <ScrollView 
-                className="bg-gray-200 h-full">
+                className="bg-gray-200 h-screen">
         {
           filteredContacts.length > 0
           ?
@@ -68,7 +71,11 @@ const SearchContacts = () => {
             </Text>
         </View>
         :
-        <></>
+        <View className="justify-center mt-11">
+            <Text className="self-center text-xl text-gray-400">
+                No contacts found
+            </Text>
+        </View>
         }
 
         <View className="bg-gray-100 rounded-xl mt-1"> 
