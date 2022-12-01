@@ -29,14 +29,21 @@ export default StyleSheet.create({
         margin:10,
     },
     editBtn:{
-        position: 'absolute',
-        width:'110%',
-        padding: 10,
-        alignItems:'center',
-        bottom:0
+        marginLeft: '30%',
+        marginRight: '20%'
     },
     btnText:{
-        fontSize:16,
+        fontSize:20,
         fontFamily: 'PingFangSC-Thin'
-    }
+    },
+    phoneContainer:{
+        marginBottom: 20,
+        flexDirection:'row',
+        position: 'absolute',
+        bottom: 0
+    },
+    phone:{
+        marginLeft: '30%',
+        marginRight: '20%'
+    },
 });

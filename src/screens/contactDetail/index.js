@@ -4,6 +4,9 @@ import styles from "./styles";
 import { TextInput } from "@react-native-material/core";
 import { useDispatch } from "react-redux";
 import { addContact, removeContact } from "../../features/contactsSlice";
+import { AntDesign } from "@expo/vector-icons";
+import CallNumber from "../../features/callNumber";
+
 
 
 
@@ -80,11 +83,16 @@ export const ContactDetail = ({ route })=>{
                             <Text>Name: {contactName}</Text>
                             <Text>Phone number: {contactPhone}</Text>
                         </View>
-                        <TouchableOpacity
-                                style={styles.editBtn}
-                                        onPress={() => setIsEditingContact(true)}>
-                                <Text style={styles.btnText}>Edit contact info</Text>
+                        <View style={styles.phoneContainer}>
+                            <TouchableOpacity
+                                            onPress={() => setIsEditingContact(true)}>
+                                    <AntDesign name="edit" style={styles.editBtn} size={40}/>
                             </TouchableOpacity>
+                            <TouchableOpacity
+                                        onPress={() => CallNumber(contactPhone)}>
+                                <AntDesign name="phone" style={styles.phone} size={40}/>
+                            </TouchableOpacity>
+                        </View>
                         </>
                     }
         </View>

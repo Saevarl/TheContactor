@@ -67,7 +67,7 @@ return (
             return(
               <View key={index}
                     className="mt-2">
-                
+           
                 <Text className="text-gray-600 text-xs ml-3">{letter}</Text>
                 <View className="bg-white rounded-xl mt-1">
                 {
@@ -80,12 +80,11 @@ return (
                         return renderContact({contact});
                       }
                     })
-                  
+             
                 }
                 </View>
-
             </View>
-              
+         
             )
           })
         }
