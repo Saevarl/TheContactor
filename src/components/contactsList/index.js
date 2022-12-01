@@ -1,6 +1,5 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
 import React, { useState, useEffect } from 'react'
-import ContactListToolbar from '../contactListToolbar'
 import * as fileService from '../../services/fileService';
 import { selectContacts } from '../../features/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -60,15 +59,9 @@ return (
             return(
               <View key={index}
                     className="mt-2">
-<<<<<<< HEAD
-           
-                <Text className="text-gray-600 text-xs ml-3">{letter}</Text>
-                <View className="bg-white rounded-xl mt-1">
-=======
                 
                 <Text className="text-gray-600 text-xs ml-2">{letter}</Text>
                 <View className="bg-gray-100 rounded-xl mt-1">
->>>>>>> saevar
                 {
                   rContacts.filter((contact) => contact.name[0].toUpperCase() === letter).map((contact, index) => {
                       if (index === 0) {
