@@ -6,8 +6,12 @@ export const contactsSlice = createSlice({
   initialState: {
     
     contacts: [],
+    expandedContact: null,
   },
   reducers: {
+    setExpandedContact: (state, action) => {
+      state.expandedContact = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -69,9 +73,9 @@ export const removeContact = createAsyncThunk(
 
 
 
-    
+export const { setExpandedContact } = contactsSlice.actions
 
-
+export const expandedContact = (state) => state.contacts.expandedContact;
 
 export const selectContacts = (state) => state.contacts.contacts
 

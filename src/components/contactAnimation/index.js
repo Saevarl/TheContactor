@@ -2,13 +2,13 @@ import { View, Text, TouchableOpacity  } from 'react-native'
 import React from 'react'
 import { TrashIcon, PhoneIcon, UserCircleIcon  } from "react-native-heroicons/outline";
 
-const ContactAnimation = ({ contact }) => {
+const ContactAnimation = ({contact}) => {
     return (
     <View className="h-14 ml-2">
       <Text className="text-xs ml-11">Phone: {contact.phone}</Text>
       <View className="flex-row justify-between mx-10 mr-12 pt-2">
         <TouchableOpacity
-                    >
+                    onPress={() => updateLayout()}>
             <PhoneIcon 
                     className="h-5 w-5" 
                     color={"green"}
@@ -19,7 +19,9 @@ const ContactAnimation = ({ contact }) => {
                 color={"gray"}/>
         <UserCircleIcon 
                     className="h-5 w-5" />
-        </View>
+
+
+      </View>
     </View>
   )
 }

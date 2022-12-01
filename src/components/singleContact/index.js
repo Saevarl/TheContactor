@@ -1,17 +1,30 @@
 import { View, Text, Image, TouchableOpacity, LayoutAnimation } from 'react-native'
 import React, { useState } from 'react'
 import ContactAnimation from '../contactAnimation';
+import { useDispatch, useSelector } from 'react-redux';
+import { setExpandedContact } from '../../features/contactsSlice';
+
 
 
 const SingleContact = ({contact}) => {
-  const [isSelected, setIsSelected] = useState(false);
   const [layoutHeight, setLayoutHeight] = useState(0);
-
+  const selectedContact = useSelector(state => state.contacts.expandedContact);
+  const dispatch = useDispatch();
 
   const toggleSelected = () => {
-    setIsSelected(!isSelected); 
-    updateLayout();
+    // if selectedContact is null or the same as the contact we're clicking on
+    if (selectedContact === null || selectedContact !== contact.id) {
+      // set the selected contact to the contact we're clicking on
+      dispatch(setExpandedContact(contact.id));
+      updateLayout();
+    } else {
+      // otherwise, set the selected contact to null
+      dispatch(setExpandedContact(null));
+      updateLayout();
+    }
   }
+
+
   
   const updateLayout = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -46,7 +59,7 @@ const SingleContact = ({contact}) => {
         </View>
     </TouchableOpacity>
     
-    {isSelected && <ContactAnimation contact={contact}/>}
+    {selectedContact === contact.id && <ContactAnimation contact={contact}/>}
     
 
 
