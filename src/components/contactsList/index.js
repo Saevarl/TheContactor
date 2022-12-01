@@ -1,45 +1,99 @@
 import { View, Text, FlatList, TouchableOpacity } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ContactListToolbar from '../contactListToolbar'
 import * as fileService from '../../services/fileService';
-import uuid from 'react-native-uuid';
+import { selectContacts } from '../../features/contactsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchContacts, addContact } from '../../features/contactsSlice';
+import { useNavigation } from '@react-navigation/native';
 
-const ContactsList = ({navigate}) => {
+
+const ContactsList = () => {
   // dummy contacts with name and phone number as key
-  const [contacts, setContacts] = useState([])
+  const rContacts = useSelector(selectContacts);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
+  
+  const firstLetterList = [...new Set(rContacts.map((contact) => contact.name[0].toUpperCase()))];
+  
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, []);
   
   
-  const addContact = async contact => {
-    id = `${uuid.v4()}`;
-    console.log(id);
-    contact = {...contact, id};
-    console.log(contact);
-    const newContact = await fileService.addContact(contact);
-    console.log(newContact);
-    
-    //setContacts([...contacts, newContact])
-   
-    
-    
+  // *****************************
+  // * ÞETTA ER DEVELOPMENT CODE *
+  // *****************************
+  const cleanDirectory = async () => {
+    await fileService.cleanDirectory();
+  
   }
+
+  
+
+  const renderContact = ({contact}) => {
+    return(
+      <View
+          key={contact.id}>
+        <TouchableOpacity
+          
+          onPress={() => navigation.navigate('ContactDetail', {contact})}>
+            {/*Hér þarf að rendera SingleContact component í stað þess að rendera bara text*/}
+            <Text 
+            className="p-2 mx-2">
+              {contact.name}
+            </Text>
+          </TouchableOpacity>
+          <View/>
+      </View>
+      )
+  }
+
     
 
-
-
-  return (
-    <View className="bg-gray-200"> 
-      <TouchableOpacity onPress={async () => addContact({name: 'Sævar', phone: '779654565', image: "https://www.pngitem.com/pimgs/m/226-2267516_male-shadow-circle-default-profile-image-round-hd.png"})}>
-        <Text>Add Contact</Text>
+return (
+    <View> 
+    
+      <TouchableOpacity
+        onPress={() => cleanDirectory()}
+      >
+        <Text>Purge</Text>
       </TouchableOpacity>
-        <ContactListToolbar 
-                        navigate={navigate}
-        />
-        <FlatList
-          data={contacts}
-          renderItem={({item}) => <Text className="bg-white p-2 m-2">{item.name}</Text>}
-          keyExtractor={item => item.id}
-          scrollEnabled={false}
-        />
+      
+
+       {
+          firstLetterList.sort().map((letter, index) => {
+            return(
+              <View key={index}
+                    className="mt-2">
+                
+                <Text className="text-gray-600 text-xs ml-3">{letter}</Text>
+                <View className="bg-white rounded-xl mt-1">
+                {
+                  rContacts.filter((contact) => contact.name[0].toUpperCase() === letter).map((contact, index) => {
+                      if (index === 0) {
+                        contact = {...contact, withDivider: false}
+                        return renderContact({contact});
+                      } else {
+                        contact = {...contact, withDivider: true}
+                        return renderContact({contact});
+                      }
+                    })
+                  
+                }
+                </View>
+
+            </View>
+              
+            )
+          })
+        }
+              
+        
+        
+        
+    
       
     </View>
   )

@@ -13,6 +13,7 @@ const onException = (cb, errorHandler) => {
 }
 
 export const cleanDirectory = async () => {
+    console.log("Cleaning directory");
     await FileSystem.deleteAsync(contactDirectory);
 }
 
@@ -28,7 +29,6 @@ export const addContact = async contact => {
     await setupDirectory();
     const fileName = `${contact.name}-${contact.id}.json`;
     const file = `${contactDirectory}/${fileName}`;
-    console.log(file);
     await onException(() => FileSystem.writeAsStringAsync(file, JSON.stringify(contact), { encoding: FileSystem.EncodingType.UTF8 }));
 
     return {
@@ -42,8 +42,9 @@ export const addContact = async contact => {
 
 
 
-export const remove = async name => {
-    return await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${name}`, { idempotent: true }));
+export const remove = async contact => {
+    const fileName = `${contact.name}-${contact.id}.json`;
+    return await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${fileName}`, { idempotent: true }));
 }
 
 export const loadContact = async fileName => {
@@ -56,6 +57,7 @@ const setupDirectory = async () => {
     console.log("Setting up directory");
     const dir = await FileSystem.getInfoAsync(contactDirectory);
     if (!dir.exists) {
+        console.log("Creating directory");
         await FileSystem.makeDirectoryAsync(contactDirectory);
     }
 }
@@ -63,7 +65,7 @@ const setupDirectory = async () => {
 export const getAllContacts = async () => {
     // Check if directory exists
     await setupDirectory();
-
+    console.log("Getting all contacts");
     const result = await onException(() => FileSystem.readDirectoryAsync(contactDirectory));
     return Promise.all(result.map(async fileName => {
         return {

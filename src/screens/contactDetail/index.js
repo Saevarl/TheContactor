@@ -2,45 +2,33 @@ import React, { useState } from "react";
 import { View, Text, Image, TouchableOpacity, Button } from "react-native";
 import styles from "./styles";
 import { TextInput } from "@react-native-material/core";
+import { useDispatch } from "react-redux";
+import { addContact, removeContact } from "../../features/contactsSlice";
 
-export const ContactDetails = ({contacts, updateContact})=>{
-    const [contactImg, setContactImg] = useState(contacts.image)
-    const [contactName, setContactName] = useState(contacts.name);
-    const [contactNumber, setContactNumber] = useState(contacts.phoneNumber);
+
+
+export const ContactDetail = ({ route })=>{
+    const contact = route.params.contact;
+    const [contactPhoto, setContactPhoto] = useState(contact.photo)
+    const [contactName, setContactName] = useState(contact.name);
+    const [contactPhone, setContactPhone] = useState(contact.phone);
     const [isEditingContact, setIsEditingContact] = useState(false);
 
+    const dispatch = useDispatch();
+    
+    
     const onContactUpdate = () => {
-        const updatedContact = {
-            id: contacts.id,
-            image: contactImg,
+        dispatch(removeContact(contact));
+        dispatch(addContact({
+            id: contact.id,
             name: contactName,
-            phoneNumber: contactNumber,
-        }
-        setContactImg("");
-        setContactName("");
-        setContactNumber("");
+            phone: contactPhone,
+            photo: contactPhoto
+        }));
         setIsEditingContact(false);
-        updateContact(updatedContact);
-        updateJson(contacts.id, updatedContact)
-    };
 
-    const updateJson = async(id, updItem)=>{
-        const response = await fetch(`/feedback/${id}`, {
-            methot: 'PUT',
-            header: {
-                'Content-Type': 'application/json',
-            },
-            body:JSON.stringify(updItem)
-        })
-
-        const data = await response.json()
-
-        setFeedback(
-            feedback.map((item)=>(item.id === id ? { ...item, ...data } : item))
-        )
     }
     return(
-        
         <View style={styles.contactView}>
             {
                         isEditingContact
@@ -59,14 +47,14 @@ export const ContactDetails = ({contacts, updateContact})=>{
                                 
                                 color={'green'}
                                 label="Image URL"
-                                value={contactImg}
-                                onChangeText={(text) => setImgURL(text)}
+                                value={contactPhoto}
+                                onChangeText={(text) => setContactPhoto(text)}
                             />
                             <TextInput
                                 color={'green'}
                                 label="Contact Number"
-                                value={contactNumber}
-                                onChangeText={(text) => setContactNumber(text)}
+                                value={contactPhone}
+                                onChangeText={(text) => setContactPhone(text)}
                                 />
                             <View style={styles.createContactBtns}>
                                 <Button
@@ -87,10 +75,10 @@ export const ContactDetails = ({contacts, updateContact})=>{
                         <>
                         <Image
                             style={styles.contactImage}
-                            source={{ uri: contacts.image}} />
+                            source={{ uri: contactPhoto}} />
                         <View style={styles.contact}>
-                            <Text>Name: {contacts.name}</Text>
-                            <Text>Phone number: {contacts.phoneNumber}</Text>
+                            <Text>Name: {contactName}</Text>
+                            <Text>Phone number: {contactPhone}</Text>
                         </View>
                         <TouchableOpacity
                                 style={styles.editBtn}
@@ -102,4 +90,4 @@ export const ContactDetails = ({contacts, updateContact})=>{
         </View>
     );
 };
-export default ContactDetails;
+export default ContactDetail;
