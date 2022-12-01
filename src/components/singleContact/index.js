@@ -1,14 +1,24 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity, LayoutAnimation } from 'react-native'
 import React, { useState } from 'react'
 import ContactAnimation from '../contactAnimation';
 
 
 const SingleContact = ({contact}) => {
   const [isSelected, setIsSelected] = useState(false);
+  const [layoutHeight, setLayoutHeight] = useState(0);
+
 
   const toggleSelected = () => {
-    setIsSelected(!isSelected);
+    setIsSelected(!isSelected); 
+    updateLayout();
   }
+  
+  const updateLayout = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setLayoutHeight(layoutHeight === 0 ? 1 : 0);
+  }
+  
+
   return (
     <View>
     <TouchableOpacity className="flex-row h-11 space-x-1 "
@@ -36,7 +46,7 @@ const SingleContact = ({contact}) => {
         </View>
     </TouchableOpacity>
     
-    {isSelected && <ContactAnimation contact={contact} toggleSelected={() => toggleSelected}/>}
+    {isSelected && <ContactAnimation contact={contact}/>}
     
 
 
