@@ -4,6 +4,7 @@ import { PlusIcon } from "react-native-heroicons/solid";
 import { MagnifyingGlassIcon, TrashIcon } from "react-native-heroicons/outline";
 import { useNavigation } from '@react-navigation/native';
 
+
 const ContactListToolbar = () => {
   const navigation = useNavigation();
   return (
