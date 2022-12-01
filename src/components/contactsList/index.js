@@ -6,6 +6,7 @@ import { selectContacts } from '../../features/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts, addContact } from '../../features/contactsSlice';
 import { useNavigation } from '@react-navigation/native';
+import SingleContact from '../singleContact';
 
 
 const ContactsList = () => {
@@ -35,17 +36,9 @@ const ContactsList = () => {
   const renderContact = ({contact}) => {
     return(
       <View
-          key={contact.id}>
-        <TouchableOpacity
-          
-          onPress={() => navigation.navigate('ContactDetail', {contact})}>
-            {/*Hér þarf að rendera SingleContact component í stað þess að rendera bara text*/}
-            <Text 
-            className="p-2 mx-2">
-              {contact.name}
-            </Text>
-          </TouchableOpacity>
-          <View/>
+        className="h-auto"
+        key={contact.id}>
+            <SingleContact contact={contact}/>
       </View>
       )
   }
@@ -67,9 +60,15 @@ return (
             return(
               <View key={index}
                     className="mt-2">
+<<<<<<< HEAD
            
                 <Text className="text-gray-600 text-xs ml-3">{letter}</Text>
                 <View className="bg-white rounded-xl mt-1">
+=======
+                
+                <Text className="text-gray-600 text-xs ml-2">{letter}</Text>
+                <View className="bg-gray-100 rounded-xl mt-1">
+>>>>>>> saevar
                 {
                   rContacts.filter((contact) => contact.name[0].toUpperCase() === letter).map((contact, index) => {
                       if (index === 0) {
