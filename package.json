@@ -15,6 +15,7 @@
     "@react-navigation/native-stack": "^6.9.2",
     "@reduxjs/toolkit": "^1.9.0",
     "expo": "~47.0.8",
+    "expo-contacts": "~11.0.1",
     "expo-file-system": "~15.1.1",
     "expo-status-bar": "~1.4.2",
     "nativewind": "^2.0.11",
