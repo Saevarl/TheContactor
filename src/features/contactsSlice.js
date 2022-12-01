@@ -6,17 +6,26 @@ export const contactsSlice = createSlice({
   initialState: {
     
     contacts: [],
+    expandedContact: null,
   },
   reducers: {
+    setExpandedContact: (state, action) => {
+      state.expandedContact = action.payload;
+    }
   },
   extraReducers: (builder) => {
     builder
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.contacts = action.payload;
       })
+      
       .addCase(addContact.fulfilled, (state, action) => {
         state.contacts.push(action.payload);
       })
+      .addCase(addContact.rejected, (state, action) => {
+        console.log("Error: Adding Contact Failed");
+      })
+
       .addCase(removeContact.fulfilled, (state, action) => {
         state.contacts = state.contacts.filter(c => c.id !== action.payload);
       })
@@ -64,9 +73,9 @@ export const removeContact = createAsyncThunk(
 
 
 
-    
+export const { setExpandedContact } = contactsSlice.actions
 
-
+export const expandedContact = (state) => state.contacts.expandedContact;
 
 export const selectContacts = (state) => state.contacts.contacts
 
