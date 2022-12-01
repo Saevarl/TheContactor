@@ -1,10 +1,18 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
-import React from 'react'
+import React, { useState } from 'react'
+import ContactAnimation from '../contactAnimation';
+
 
 const SingleContact = ({contact}) => {
-    
+  const [isSelected, setIsSelected] = useState(false);
+
+  const toggleSelected = () => {
+    setIsSelected(!isSelected);
+  }
   return (
-    <TouchableOpacity className="flex-row h-11 space-x-1 ">
+    <View>
+    <TouchableOpacity className="flex-row h-11 space-x-1 "
+                      onPress={toggleSelected}>
         <View className="p-2 items-center justify-center">
             {
                 contact.photo !== "" ?
@@ -27,6 +35,13 @@ const SingleContact = ({contact}) => {
         
         </View>
     </TouchableOpacity>
+    
+    {isSelected && <ContactAnimation contact={contact} toggleSelected={() => toggleSelected}/>}
+    
+
+
+
+    </View>
   )
 }
 

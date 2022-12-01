@@ -14,9 +14,14 @@ export const contactsSlice = createSlice({
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.contacts = action.payload;
       })
+      
       .addCase(addContact.fulfilled, (state, action) => {
         state.contacts.push(action.payload);
       })
+      .addCase(addContact.rejected, (state, action) => {
+        console.log("Error: Adding Contact Failed");
+      })
+
       .addCase(removeContact.fulfilled, (state, action) => {
         state.contacts = state.contacts.filter(c => c.id !== action.payload);
       })
