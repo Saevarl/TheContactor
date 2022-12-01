@@ -26,8 +26,8 @@ export const ContactDetail = ({ route })=>{
             photo: contactPhoto
         }));
         setIsEditingContact(false);
+
     }
-    
     return(
         <View style={styles.contactView}>
             {
