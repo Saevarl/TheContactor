@@ -27,7 +27,7 @@ export const copyFile = async (file, newLocation) => {
 export const addContact = async contact => {
     console.log("Adding contact");
     await setupDirectory();
-    const fileName = `${contact.name}-${contact.id}.json`;
+    const fileName = `${replaceSpecialCharacters(contact.name)}-${contact.id}.json`;
     const file = `${contactDirectory}/${fileName}`;
     await onException(() => FileSystem.writeAsStringAsync(file, JSON.stringify(contact), { encoding: FileSystem.EncodingType.UTF8 }));
 
