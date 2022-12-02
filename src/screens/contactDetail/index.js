@@ -14,28 +14,6 @@ import { selectContacts } from "../../features/contactsSlice";
 export const ContactDetail = ({ route })=>{
     const [contact, setContact] = useState(route.params.contact)
     
-    // When this screen is returned to, after the contact has been edited, via navigation.goBack()
-    // the contact object needs to be updated to display the new data
-    useFocusEffect(
-        React.useCallback(() => {
-            setContact(route.params.contact)
-        }, [route.params.contact])
-    )
-
-        
-
-
- 
-
-    
-
-
-
-
-
-
-
-
     const navigation = useNavigation(); 
     
     useLayoutEffect(() => {
