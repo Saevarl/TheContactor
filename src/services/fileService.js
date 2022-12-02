@@ -1,5 +1,7 @@
 import * as FileSystem from 'expo-file-system';
 const contactDirectory = `${FileSystem.documentDirectory}contacts`;
+const replaceSpecialCharacters = require('replace-special-characters');
+
 
 
 
@@ -20,7 +22,6 @@ export const cleanDirectory = async () => {
 
 export const addContact = async contact => {
     await setupDirectory();
-    const replaceSpecialCharacters = require('replace-special-characters');
     const contactName = replaceSpecialCharacters(contact.name).replace(/\s/g, '_');
     const fileName = `${contactName}-${contact.id}.json`;
     const file = `${contactDirectory}/${fileName}`;
@@ -34,7 +35,8 @@ export const addContact = async contact => {
     
 }
 export const remove = async contact => {
-    const fileName = `${contact.name}-${contact.id}.json`;
+    const contactName = replaceSpecialCharacters(contact.name).replace(/\s/g, '_');
+    const fileName = `${contactName}-${contact.id}.json`;
     return await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${fileName}`, { idempotent: true }));
 }
 
