@@ -5,8 +5,6 @@ import { selectContacts } from '../../features/contactsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts, addContact } from '../../features/contactsSlice';
 import { useNavigation } from '@react-navigation/native';
-import ImportContacts from '../../features/importContacts';
-import * as Contacts from 'expo-contacts';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import SingleContact from '../singleContact';
 import { addContactsFromOs } from '../../features/contactsSlice';
@@ -24,29 +22,10 @@ const ContactsList = () => {
 
   useEffect(() => {
     dispatch(fetchContacts());
-    fetchContactsFromOS();
-
+    console.log('þetta er useEffect');
+    console.log('KALLI',contacts);
+    dispatch(addContactsFromOs());
   }, []);
-
-  const fetchContactsFromOS = () => {
-    (async () => {
-      const { status } = await Contacts.requestPermissionsAsync();
-      if (status === 'granted') {
-        const { data } = await Contacts.getContactsAsync({
-          fields: [Contacts.Fields.ID, Contacts.Fields.Name, Contacts.Fields.PhoneNumbers, Contacts.Fields.Image ],
-        });
-        if (data.length > 0) {
-          console.log(data)
-          
-          //dispatch(addContactsFromOs(data));
-        }else{
-          setError('No contacts found');
-        }
-      }else{
-        setError('Permission to access contacts denied.')
-      }
-    });
-  };
 
   
   const renderContact = ({contact}) => {
