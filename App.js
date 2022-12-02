@@ -5,6 +5,7 @@ import HomeScreen from './src/screens/homescreen';
 import CreateContact from './src/screens/createContact';
 import ContactDetail from './src/screens/contactDetail';
 import SearchContacts from './src/screens/searchContacts';
+import EditContact from './src/screens/editContact';
 import { store } from './store';
 import { Provider } from 'react-redux';
 
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="CreateContact" component={CreateContact} />
         <Stack.Screen name="ContactDetail" component={ContactDetail} />
         <Stack.Screen name="SearchContacts" component={SearchContacts} />
+        <Stack.Screen name="EditContact" component={EditContact} />
       </Stack.Navigator>
     </Provider>
     </NavigationContainer>

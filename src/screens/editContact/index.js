@@ -1,67 +1,69 @@
-import { View, Text, TextInput, ScrollView, TouchableOpacity } from 'react-native'
-import React, { useLayoutEffect, useState }from 'react'
+import { View, Text, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native'
+import React, { useLayoutEffect, useState } from 'react'
+import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+import { MaterialIcons } from '@expo/vector-icons';
+import { addContact, removeContact } from "../../features/contactsSlice";
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { CameraIcon } from 'react-native-heroicons/solid'
 import { UserIcon, PhoneIcon, CameraIcon as Camera } from 'react-native-heroicons/outline'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { useNavigation } from '@react-navigation/native'
-import { useDispatch } from 'react-redux'
-import { addContact } from '../../features/contactsSlice'
-import uuid from 'react-native-uuid';
 
-const CreateContact = ({"navigation": { navigate }}) => {
-    const navigation = useNavigation();
-    const dispatch = useDispatch(); 
+
+
+const EditContact = ({ route }) => {
+    const contact = route.params.contact;
+    const [contactPhoto, setContactPhoto] = useState(contact.photo)
+    const [contactName, setContactName] = useState(contact.name);
+    const [contactPhone, setContactPhone] = useState(contact.phone);
+    const [isEditingName, setIsEditingName] = useState(false)
+    const [isEditingPhone, setIsEditingPhone] = useState(false)
+    const [isEditingPhoto, setIsEditingPhoto] = useState(false)
+
+    const dispatch = useDispatch();
+    const navigation = useNavigation(); 
     
     useLayoutEffect(() => {
         navigation.setOptions({
             headerShown: false
         })
     }, [])
-
-    const [isEditingName, setIsEditingName] = useState(false)
-    const [isEditingPhone, setIsEditingPhone] = useState(false)
-    const [isEditingPhoto, setIsEditingPhoto] = useState(false)
-    const [name, setName] = useState('')
-    const [phone, setPhone] = useState('')
-    const [photo, setPhoto] = useState('')
-  
-  const CreateContact = () => {
-    const contact = {
-        id: `${uuid.v4()}`,
-        name: name,
-        phone: phone,
-        photo: photo
+    
+    
+    const onContactUpdate = () => {
+        dispatch(removeContact(contact));
+        dispatch(addContact({
+            id: contact.id,
+            name: contactName,
+            phone: contactPhone,
+            photo: contactPhoto
+        }));
+        navigation.navigate("Home");
     }
-    setName('');    
-    setPhone('');
-    setPhoto('');
-    dispatch(addContact( contact ));
-    navigate('Home');
-    }  
-
   return (
     <SafeAreaView className="flex-1 bg-gray-200">
         <ScrollView>
+        <Text className="text-xl font-bold ml-8 mt-8 self-center mr-8">Edit Contact</Text>
         <View className=" h-screen py-4 flex-1">
       <View className="h-30 flex flex-col ">
         <View className="h-20 items-center justify-center">
-            <CameraIcon className="h-40 w-40" color={"orange"}/>
+            <CameraIcon className="h-40 w-40" color={"green"}/>
         </View>
         <View className="flex-row bg-white items-center rounded-lg mx-3 px-2 mb-3">
-            <UserIcon className="h-40 w-40 ml-2" color={ isEditingName ? "orange" : "gray"}/>
+            <UserIcon className="h-40 w-40 ml-2" color={ isEditingName ? "green" : "gray"}/>
             <TextInput 
-                    className="bg-white h-10 px-5 pr-16 w-full rounded-lg text-sm focus:outline-none" 
+                    className="bg-white h-10 px-5 pr-16 rounded-lg w-full text-sm focus:outline-none" 
                     type="text" 
                     name="name" 
                     placeholder="Name"
                     onFocus={() => setIsEditingName(true)}
                     onBlur={() => setIsEditingName(false)}
-                    onChangeText={text => setName(text)}
-                    selectionColor={"orange"}      
+                    onChangeText={text => setContactName(text)}
+                    value={contactName}
+                    selectionColor={"green"}      
                     />
         </View>
         <View className="flex-row bg-white items-center rounded-lg mx-3 px-2 mb-3">
-            <PhoneIcon className="h-40 w-40 ml-2" color={ isEditingPhone ? "orange" : "gray"}/>
+            <PhoneIcon className="h-40 w-40 ml-2" color={ isEditingPhone ? "green" : "gray"}/>
             <TextInput 
                     className="bg-white h-10 px-5 pr-16 w-full rounded-lg text-sm focus:outline-none" 
                     type="text" 
@@ -69,12 +71,13 @@ const CreateContact = ({"navigation": { navigate }}) => {
                     placeholder="Phone"
                     onFocus={() => setIsEditingPhone(true)}
                     onBlur={() => setIsEditingPhone(false)}
-                    onChangeText={text => setPhone(text)} 
-                    selectionColor={"orange"}
+                    onChangeText={text => setContactPhone(text)} 
+                    value={contactPhone}
+                    selectionColor={"green"}
                     />
         </View>
         <View className="flex-row bg-white items-center rounded-lg mx-3 px-2 mb-3">
-            <Camera className="h-40 w-40 ml-2" color={ isEditingPhoto ? "orange" : "gray"}/>
+            <Camera className="h-40 w-40 ml-2" color={ isEditingPhoto ? "green" : "gray"}/>
             <TextInput 
                     className="bg-white h-10 px-5 pr-16 w-full rounded-lg text-sm focus:outline-none" 
                     type="text" 
@@ -82,8 +85,9 @@ const CreateContact = ({"navigation": { navigate }}) => {
                     placeholder="Photo"
                     onFocus={() => setIsEditingPhoto(true)}
                     onBlur={() => setIsEditingPhoto(false)}
-                    onChangeText={text => setPhoto(text)} 
-                    selectionColor={"orange"}
+                    onChangeText={text => setContactPhoto(text)} 
+                    value={contactPhoto}
+                    selectionColor={"green"}
                     />
         </View>
         
@@ -100,7 +104,7 @@ const CreateContact = ({"navigation": { navigate }}) => {
             
             <TouchableOpacity 
                         className="w-auto"
-                        onPress={() => CreateContact()}>
+                        onPress={() => onContactUpdate()}>
                         
                 <Text className="font-bold text-gray-500 p-2">Save</Text>
             </TouchableOpacity>
@@ -109,8 +113,7 @@ const CreateContact = ({"navigation": { navigate }}) => {
         </View>
     </View>
     </SafeAreaView>
-    
   )
 }
 
-export default CreateContact
+export default EditContact

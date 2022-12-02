@@ -12,13 +12,11 @@ const SingleContact = ({contact}) => {
   const dispatch = useDispatch();
 
   const toggleSelected = () => {
-    // if selectedContact is null or the same as the contact we're clicking on
     if (selectedContact === null || selectedContact !== contact.id) {
-      // set the selected contact to the contact we're clicking on
-      dispatch(setExpandedContact(contact.id));
       updateLayout();
+      dispatch(setExpandedContact(contact.id));
+      
     } else {
-      // otherwise, set the selected contact to null
       dispatch(setExpandedContact(null));
       updateLayout();
     }
