@@ -30,7 +30,7 @@ const CreateContact = ({"navigation": { navigate }}) => {
         id: `${uuid.v4()}`,
         name: name,
         phone: phone,
-        photo: photo
+        photo: photo?photo:'https://www.picsum.photos/200/300'
     }
     setName('');    
     setPhone('');

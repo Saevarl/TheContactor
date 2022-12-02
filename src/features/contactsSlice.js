@@ -1,5 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import * as fileService from '../services/fileService';
+import * as Contacts from 'expo-contacts';
+import uuid from 'react-native-uuid';
+
 
 export const contactsSlice = createSlice({
   name: 'contacts',
@@ -12,9 +15,7 @@ export const contactsSlice = createSlice({
     setExpandedContact: (state, action) => {
       state.expandedContact = action.payload;
     },
-    addContactsFromOs: (state, action) => {
-      state.contacts = [...state.contacts, ...action.payload];
-    },
+
   },
   extraReducers: (builder) => {
     builder
@@ -32,9 +33,46 @@ export const contactsSlice = createSlice({
       .addCase(removeContact.fulfilled, (state, action) => {
         state.contacts = state.contacts.filter(c => c.id !== action.payload);
       })
+
+      .addCase(addContactsFromOs.fulfilled, (state, action)=>{
+        state.contacts = [...state.contacts, ...action.payload]
+      })
         
-  } 
+  }
 })
+
+export const addContactsFromOs = createAsyncThunk(
+  'contacts/addContactsFromOS',
+  async() =>{
+    console.log('Eftir Async');
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status === 'granted') {
+        const { data } = await Contacts.getContactsAsync({
+          fields: [Contacts.Fields.ID, Contacts.Fields.Name, Contacts.Fields.PhoneNumbers, Contacts.Fields.Image ],
+        });
+        if (data.length > 0) {
+          console.log('þetta er frá Símanum', data);
+          const contacts = data.map((contact)=> {
+            console.log('Símanúmer',contact.phoneNumbers[0].digits);
+            return {
+              id: `${uuid.v4()}`,
+              name: contact.name,
+              phone: contact.phoneNumbers[0].digits,
+              photo: 'https://www.picsum.photos/200/300'
+            }
+          })
+          console.log(contacts);
+          return contacts;
+        }else{
+          console.log('No contacts found');
+          setError('No contacts found');
+        }
+      }else{
+        console.log('Permission to access contacts denied');
+        setError('Permission to access contacts denied.')
+      }
+      
+    })
 
 export const fetchContacts = createAsyncThunk(
   'contacts/fetchContacts',
@@ -70,7 +108,7 @@ export const removeContact = createAsyncThunk(
 )
 
 
-export const { setExpandedContact, addContactsFromOs } = contactsSlice.actions
+export const { setExpandedContact} = contactsSlice.actions
 
 export const expandedContact = (state) => state.contacts.expandedContact;
 
