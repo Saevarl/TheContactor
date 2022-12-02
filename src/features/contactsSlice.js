@@ -37,6 +37,10 @@ export const contactsSlice = createSlice({
       .addCase(addContactsFromOs.fulfilled, (state, action)=>{
         state.contacts = [...state.contacts, ...action.payload]
       })
+      .addCase(removeContact.rejected, (state, action) => {
+        console.log("Error: Removing Contact Failed");
+        state.contacts = state.contacts.filter(c => c.id !== action.payload);
+      })
         
   }
 })
