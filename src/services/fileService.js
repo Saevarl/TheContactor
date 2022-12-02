@@ -34,7 +34,8 @@ export const addContact = async contact => {
     
 }
 export const remove = async contact => {
-    const fileName = `${contact.name}-${contact.id}.json`;
+    const replaceSpecialCharacters = require('replace-special-characters');
+    const fileName = replaceSpecialCharacters(contact.name).replace(/\s/g, '_');
     return await onException(() => FileSystem.deleteAsync(`${contactDirectory}/${fileName}`, { idempotent: true }));
 }
 
