@@ -29,6 +29,7 @@ export const contactsSlice = createSlice({
       .addCase(removeContact.fulfilled, (state, action) => {
         state.contacts = state.contacts.filter(c => c.id !== action.payload);
       })
+        
   } 
 })
 
@@ -45,7 +46,6 @@ export const fetchContacts = createAsyncThunk(
         photo: contact.photo
       }
     });
-    console.log(contactList);
     return contactList;
   }
 )
@@ -53,7 +53,6 @@ export const fetchContacts = createAsyncThunk(
 export const addContact = createAsyncThunk(
   'contacts/addContact',
   async (contact) => {
-    console.log("Adding contact");
     await fileService.addContact(contact);
     return contact;
   }
@@ -62,15 +61,10 @@ export const addContact = createAsyncThunk(
 export const removeContact = createAsyncThunk(
   'contacts/removeContact',
   async (contact) => {
-    console.log("Removing contact");
     await fileService.remove(contact);
     return contact.id;
   }
 )
-
-
-
-
 
 
 export const { setExpandedContact } = contactsSlice.actions

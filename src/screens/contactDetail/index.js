@@ -1,101 +1,91 @@
-import React, { useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { View, Text, Image, TouchableOpacity, Button } from "react-native";
 import styles from "./styles";
 import { TextInput } from "@react-native-material/core";
-import { useDispatch } from "react-redux";
-import { addContact, removeContact } from "../../features/contactsSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 import CallNumber from "../../features/callNumber";
-
-
+import { useFocusEffect, useIsFocused, useNavigation } from "@react-navigation/native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { MaterialIcons } from '@expo/vector-icons';
+import { selectContacts } from "../../features/contactsSlice";
 
 
 export const ContactDetail = ({ route })=>{
-    const contact = route.params.contact;
-    const [contactPhoto, setContactPhoto] = useState(contact.photo)
-    const [contactName, setContactName] = useState(contact.name);
-    const [contactPhone, setContactPhone] = useState(contact.phone);
-    const [isEditingContact, setIsEditingContact] = useState(false);
-
-    const dispatch = useDispatch();
+    const [contact, setContact] = useState(route.params.contact)
     
-    
-    const onContactUpdate = () => {
-        dispatch(removeContact(contact));
-        dispatch(addContact({
-            id: contact.id,
-            name: contactName,
-            phone: contactPhone,
-            photo: contactPhoto
-        }));
-        setIsEditingContact(false);
+    // When this screen is returned to, after the contact has been edited, via navigation.goBack()
+    // the contact object needs to be updated to display the new data
+    useFocusEffect(
+        React.useCallback(() => {
+            setContact(route.params.contact)
+        }, [route.params.contact])
+    )
 
-    }
-    return(
-        <View style={styles.contactView}>
-            {
-                        isEditingContact
-                        ?
-                        <> 
-                        <View style={styles.editContainer}>
-                            <Text style={styles.updateContactHeader}>Edit Contact Info</Text>
-                            <TextInput
-                                
-                                color={'green'}
-                                label="Contact Name"
-                                value={contactName}
-                                onChangeText={(text) => setContactName(text)}
-                            />
-                            <TextInput
-                                
-                                color={'green'}
-                                label="Image URL"
-                                value={contactPhoto}
-                                onChangeText={(text) => setContactPhoto(text)}
-                            />
-                            <TextInput
-                                color={'green'}
-                                label="Contact Number"
-                                value={contactPhone}
-                                onChangeText={(text) => setContactPhone(text)}
-                                />
-                            <View style={styles.createContactBtns}>
-                                <Button
-                                    title="Cancel"
-                                    onPress={() => setIsEditingContact(false)}
-                                />
-                                <Button
-                                    title="Update Contact"
-                                    onPress={onContactUpdate}
-                                    color={'green'}
-                                />
-                            </View>    
+        
+
+
+ 
+
+    
+
+
+
+
+
+
+
+
+    const navigation = useNavigation(); 
+    
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerShown: false
+        })
+    }, [])
+    
+    return (
+        <SafeAreaView className="bg-gray-200">
+            
+            <TouchableOpacity
+                    onPress={() => navigation.goBack()} >
+                <View className="ml-3">
+                    <MaterialIcons
+                        name='arrow-back-ios'
+                        size={24}
+                    />
+            </View>
+            </TouchableOpacity>
+            <Image
+                style={styles.contactImage}
+                source={{ uri: contact.photo}}
+                className="self-center" />
+            <View className="h-60" >
+                <View className="flex-row justify-center">
+                    <Text className="font-bold text-3xl ml-8 self-center">{contact.name}</Text>
+                    <TouchableOpacity
+                                    className="ml-2 mt-3"
+                                    onPress={() => navigation.navigate("EditContact", {contact: contact})}>
+                            <AntDesign name="edit" color={"gray"} size={16}/>
+                    </TouchableOpacity>
+                </View>
+                <View className="flex-row p-2 self-center mb-8">
+                    <Text className="text-gray-500 text-xs">Phone</Text>
+                    <Text className="ml-2">{contact.phone}</Text>
+                </View>
                 
-                        </View>
+            </View>
+            <View className="bg-slate-200 h-full items-center">
+                
+                <TouchableOpacity
+                            className="rounded-full p-2 mt-12"
+                            onPress={() => CallNumber(contact.phone)}>
+                    <AntDesign name="phone" color={"green"} size={40}/>
+                </TouchableOpacity>
+            </View>
                         
-                       </>
-                        :
-                        <>
-                        <Image
-                            style={styles.contactImage}
-                            source={{ uri: contactPhoto}} />
-                        <View style={styles.contact}>
-                            <Text>Name: {contactName}</Text>
-                            <Text>Phone number: {contactPhone}</Text>
-                        </View>
-                        <View style={styles.phoneContainer}>
-                            <TouchableOpacity
-                                            onPress={() => setIsEditingContact(true)}>
-                                    <AntDesign name="edit" style={styles.editBtn} size={40}/>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                        onPress={() => CallNumber(contactPhone)}>
-                                <AntDesign name="phone" style={styles.phone} size={40}/>
-                            </TouchableOpacity>
-                        </View>
-                        </>
-                    }
-        </View>
+                    
+        </SafeAreaView>
     );
 };
 export default ContactDetail;

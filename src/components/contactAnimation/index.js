@@ -9,11 +9,10 @@ import CallNumber from '../../features/callNumber';
 const ContactAnimation = ({contact}) => {
     const dispatch = useDispatch();
     const navigation = useNavigation();
-
-
+    
     return (
     <View className="h-14 ml-2">
-      <Text className="text-xs ml-11">Phone: {contact.phone}</Text>
+      <Text className="text-xs ml-11">Phone {contact.phone}</Text>
       <View className="flex-row justify-between mx-10 mr-12 pt-2">
         <TouchableOpacity
                     onPress={() => CallNumber(contact.phone)} >
