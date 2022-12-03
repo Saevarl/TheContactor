@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Button, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, TextInput, Button, ScrollView, TouchableOpacity, TouchableHighlight } from 'react-native'
 import React, { useLayoutEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -6,7 +6,8 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { addContact, removeContact } from "../../features/contactsSlice";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CameraIcon } from 'react-native-heroicons/solid'
-import { UserIcon, PhoneIcon, CameraIcon as Camera } from 'react-native-heroicons/outline'
+import { UserIcon, PhoneIcon, CameraIcon as Camera } from 'react-native-heroicons/outline';
+import styles from '../contactDetail/styles';
 
 
 
@@ -27,7 +28,7 @@ const EditContact = ({ route }) => {
             headerShown: false
         })
     }, [])
-    
+
     
     const onContactUpdate = () => {
         dispatch(removeContact(contact));
@@ -90,8 +91,11 @@ const EditContact = ({ route }) => {
                     selectionColor={"green"}
                     />
         </View>
-        
       </View>
+      <TouchableHighlight
+            onPress={() => navigation.navigate("UploadPhoto")}>
+            <Text className="font-bold text-gray-500 p-2">Take Photo</Text>
+        </TouchableHighlight>
     </View>
     </ScrollView>
     <View className="flex-row h-10 bg-gray-200 justify-center px-4">

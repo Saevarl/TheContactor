@@ -9,6 +9,7 @@ import { useFocusEffect, useIsFocused, useNavigation } from "@react-navigation/n
 import { SafeAreaView } from "react-native-safe-area-context";
 import { MaterialIcons } from '@expo/vector-icons';
 import { selectContacts } from "../../features/contactsSlice";
+import UploadPhoto from "../uploadPhoto";
 
 
 export const ContactDetail = ({ route })=>{
@@ -61,7 +62,7 @@ export const ContactDetail = ({ route })=>{
                     <AntDesign name="phone" color={"green"} size={40}/>
                 </TouchableOpacity>
             </View>
-                        
+            
                     
         </SafeAreaView>
     );
