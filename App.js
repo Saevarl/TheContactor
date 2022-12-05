@@ -6,6 +6,7 @@ import CreateContact from './src/screens/createContact';
 import ContactDetail from './src/screens/contactDetail';
 import SearchContacts from './src/screens/searchContacts';
 import EditContact from './src/screens/editContact';
+import UploadPhoto from './src/screens/uploadPhoto';
 import { store } from './store';
 import { Provider } from 'react-redux';
 
@@ -23,6 +24,7 @@ export default function App() {
         <Stack.Screen name="ContactDetail" component={ContactDetail} />
         <Stack.Screen name="SearchContacts" component={SearchContacts} />
         <Stack.Screen name="EditContact" component={EditContact} />
+        <Stack.Screen name="UploadPhoto" component={UploadPhoto} />
       </Stack.Navigator>
     </Provider>
     </NavigationContainer>

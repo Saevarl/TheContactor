@@ -22,8 +22,6 @@ const ContactsList = () => {
 
   useEffect(() => {
     dispatch(fetchContacts());
-    console.log('þetta er useEffect');
-    console.log('KALLI',contacts);
     dispatch(addContactsFromOs());
   }, []);
 
